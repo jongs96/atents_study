@@ -4,114 +4,45 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+//절차지향
+//함수지향
+
 namespace cs_study_JS
 {
     class Program
     {
         static void Main(string[] args)
         {
-            //네자리의 숫자를 입력받고 입력받은 숫자를 한글로 출력하세요.
-            //4321->사삼이일
+            //함수 >> 유지보수 비용을 줄여줌, 중복코드 방지-재활용 가능.
 
-            //Console.WriteLine("네 자리의 숫자를 입력하시오.");
-            //int Num = int.Parse(Console.ReadLine());//문자를 변형하는 경우라.int.Parse이고 비슷한 자료형변환은 (변환자료형)으로가능
-            //string temp = "";
-            //int[] n = new int[4];
+            //숫자두개를 입력 받고 둘 중 큰 숫자를 알려준다./반환한다.
+            int Num1 = int.Parse(Console.ReadLine());
+            int Num2 = int.Parse(Console.ReadLine());
+            MaxNum(Num1, Num2);
 
-            //for (int i = 0; i < n.Length; i++)
-            //{
-            //    n[i] = Num % 10;
-            //    Num /= 10;
-            //}
+            int num = Sum(10, 20); //반환된 10+20의 값을 num에 저장.
+            Console.WriteLine(num);
 
-            //for (int i = 3; i >= 0; --i)
-            //{
-            //    switch (n[i])
-            //    {
-            //        case 0:
-            //            temp += "영";
-            //            break;
-            //        case 1:
-            //            temp += "일";
-            //            break;
-            //        case 2:
-            //            temp += "이";
-            //            break;
-            //        case 3:
-            //            temp += "삼";
-            //            break;
-            //        case 4:
-            //            temp += "사";
-            //            break;
-            //        case 5:
-            //            temp += "오";
-            //            break;
-            //        case 6:
-            //            temp += "육";
-            //            break;
-            //        case 7:
-            //            temp += "칠";
-            //            break;
-            //        case 8:
-            //            temp += "팔";
-            //            break;
-            //        case 9:
-            //            temp += "구";
-            //            break;
-            //        default:
-            //            break;
-            //    }
-            //}
-
-            //Console.WriteLine(temp);
-
-            //강사님 코드
-            int Num = int.Parse(Console.ReadLine());
-            int[] Numlist = new int[4];
-            int i = 0;
-
-            while(Num > 0)
+        }
+        static int Sum(int a, int b)//반환형 함수. static 반환타입 함수이름(매개변수)
+        {
+            return a + b;
+        }
+        static void MaxNum(int a, int b)//(parameter=매개변수)
+        {
+            if(a>b)
             {
-                Numlist[i] = Num % 10;
-                Num /= 10;
-                ++i;
+                /*Console.WriteLine(a +"가 " + b + "보다 큽니다.");*///a문자 변환출력 = a.ToString() >>.ToString()이 생략되어있는것임.
+                //Console.WriteLine("{0}가 {1}보다 큽니다.", a, b);//{0}에는 a {1}에는 b가 출력됨.
+                Console.WriteLine($"{a}가 {b}보다 큽니다.");// $표시를 붙여야 한다.
             }
-
-            for(i = Numlist.Length -1; i>=0; --i)
+            else if(a==b)
             {
-                switch(Numlist[i])
-                {
-                    case 0:
-                        Console.WriteLine("영");
-                        break;
-                    case 1:
-                        Console.WriteLine("일");
-                        break;
-                    case 2:
-                        Console.WriteLine("이");
-                        break;
-                    case 3:
-                        Console.WriteLine("삼");
-                        break;
-                    case 4:
-                        Console.WriteLine("사");
-                        break;
-                    case 5:
-                        Console.WriteLine("오");
-                        break;
-                    case 6:
-                        Console.WriteLine("육");
-                        break;
-                    case 7:
-                        Console.WriteLine("칠");
-                        break;
-                    case 8:
-                        Console.WriteLine("팔");
-                        break;
-                    case 9:
-                        Console.WriteLine("구");
-                        break;
-                }
+                Console.WriteLine($"{a}와 {b}가 같스니다.");
+            }
+            else
+            {
+                Console.WriteLine($"{b}가 {a}보다 큽니다.");
             }
         }
     }
