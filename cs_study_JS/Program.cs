@@ -14,36 +14,26 @@ namespace cs_study_JS
         static void Main(string[] args)
         {
             //함수 >> 유지보수 비용을 줄여줌, 중복코드 방지-재활용 가능.
+            //함수 오버로딩 : 파라미터의 개수, 타입이다르면 함수명이 같아도 실행이된다.
 
-            //숫자두개를 입력 받고 둘 중 큰 숫자를 알려준다./반환한다.
-            int Num1 = int.Parse(Console.ReadLine());
-            int Num2 = int.Parse(Console.ReadLine());
-            MaxNum(Num1, Num2);
-
-            int num = Sum(10, 20); //반환된 10+20의 값을 num에 저장.
-            Console.WriteLine(num);
-
+            int num = Sum(10, 10, 10);
+            int DefaultNum = Sum();
+            Console.WriteLine(Sum("Hi", "Hello"));
+            Console.WriteLine(DefaultNum);
         }
-        static int Sum(int a, int b)//반환형 함수. static 반환타입 함수이름(매개변수)
+
+        static int Sum(int a = 0, int b = 0)//매개변수 디폴트값. b에 값을 넣지않아도 실행이됨.
+        {//디폴트는 뒤쪽에서부터 채워 넣을 수 있다.
+            return a + b;
+        }
+        static string Sum(string a, string b)
         {
             return a + b;
         }
-        static void MaxNum(int a, int b)//(parameter=매개변수)
+        static int Sum(int a, int b, int c)
         {
-            if(a>b)
-            {
-                /*Console.WriteLine(a +"가 " + b + "보다 큽니다.");*///a문자 변환출력 = a.ToString() >>.ToString()이 생략되어있는것임.
-                //Console.WriteLine("{0}가 {1}보다 큽니다.", a, b);//{0}에는 a {1}에는 b가 출력됨.
-                Console.WriteLine($"{a}가 {b}보다 큽니다.");// $표시를 붙여야 한다.
-            }
-            else if(a==b)
-            {
-                Console.WriteLine($"{a}와 {b}가 같스니다.");
-            }
-            else
-            {
-                Console.WriteLine($"{b}가 {a}보다 큽니다.");
-            }
+            return a + b + c;
         }
+
     }
 }
