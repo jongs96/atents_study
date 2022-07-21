@@ -8,37 +8,76 @@ namespace cs_study_JS
 {
     class Program
     {
-        static void Main(string[] args)//Main 함수
+        static void Main(string[] args)
         {
-            //지역변수
-            //지역변수는 {}블록스코프 내에서만 존재한다.
+            //Random 함수
+            //Random rnd = new Random();
+            //rnd 에 랜덤번호 부여
+            //삼각함수 table을 이용해 random값이 만들어짐.
+            //컴퓨터 내에 저장되어 있는 pi값이 이용됨.
+            //Random rnd = new Random(시드값)
+            //시드값의 의미 : table에서 몇번째부터의 값을 뽑아온다는 의미
+            //시드값을 설정하면 매번 실행할 때마다 같은값이 나온다.
+            //시드값을 비우면 현재시간 기반으로 시드값을 설정해서 랜덤번호 생성.
+            //**랜덤한 값을 뽑고나면 뽑는 위치가 이동이된다.**
 
-            //배열
-            string Student1 = "Kim";
-            string Student2 = "Lee";//이러한 연속된 변수를 저장하기 위한 공간.
+            //Console.WriteLine(rnd.Next(1, 101));//rnd.Next((랜덤을생성할)첫번호, 마지막번호 +1)
+            //삼각함수 랜덤값이 편중되어 있는 경우가 있어 table을 직접 만들어서 사용하기도 한다.
 
-            string[] Students = new string[5];//선언 형식: 타입[] 배열이름 = new 타입[갯수];
-            Students[0] = "Kim";//첫번째 배열에 Kim대입
-            Students[1] = "Lee";//두번째 배열에 Lee대입
-
-            string[] Students2 = { "Kim", "Lee", "Pak", "Choi", "kang" };
-            //선언과 동시에 배열의 값 설정 설정 개수에 맞게 배열생성된다.
-
-            int[] Numlist = new int[10];
-            for(int i =0; i<Numlist.Length; ++i) //Numlist.Length : 배열의 갯수
+            //크기가 6인 배열을 만들고 1~45의 랜덤한 값으로 로또 번호를 생성 하시오.(중복 숫자가 있으면 안됨.)
+            Random rnd = new Random();
+            int[] Num = new int[6];
+            bool check = true;
+            for (int n = 0; n < Num.Length; ++n)
             {
-                Numlist[i] = 10;
-            }
-            //배열 반복문을 통해 값 입력
+                Num[n] = rnd.Next(1, 46);
 
-            //배열에서 사용하는 반복문 : foreach(범위형 반복문)
-            //배열의 첫번째 index부터 마지막번호까지 자동으로 반복하는 반복문이다.
-            //시스템 내부적으로 처리속도가 빨라서 사용하는것이 더 좋다.
-            foreach(int Num in Numlist)
+                while (check)
+                {
+                    for (int n2 = 0; n2 < Num.Length; ++n2)
+                    {
+                        if (Num[n] == Num[n2])
+                        {
+                            check = false;
+                            break;
+                        }
+                    }
+                    Num[n] = rnd.Next(1, 46);
+                }
+            }
+
+            foreach (int W in Num)
             {
-                Console.WriteLine(Num);
+                Console.WriteLine(W);
             }
 
+            //강사님 답
+            //Random rnd = new Random();
+            //byte[] LottoNumber = new byte[6];
+
+            //for(int i = 0; i<LottoNumber.Length;)//반복조건 유의, 증감 제거
+            //{
+            //    bool check = false;
+            //    LottoNumber[i] = (byte)rnd.Next(1,46);// int형 rnd값 byte로 형변환.
+            //    for(int n = 0; n < i; ++n)
+            //    {
+            //        if(LottoNumber[n]==LottoNumber[i])
+            //        {
+            //            //중복숫자
+            //            check = true;
+            //            break;
+            //        }
+            //    }
+            //    if(!check)
+            //    {
+            //        ++i;
+            //    }
+            //}
+
+            //foreach(int num in LottoNumber)
+            //{
+            //    Console.WriteLine(num);
+            //}
         }
     }
 }
