@@ -12,28 +12,31 @@ namespace cs_study_JS
     class Program
     {
         static void Main(string[] args)
-        {
-            //함수 >> 유지보수 비용을 줄여줌, 중복코드 방지-재활용 가능.
-            //함수 오버로딩 : 파라미터의 개수, 타입이다르면 함수명이 같아도 실행이된다.
+        {//매개변수 디폴트값==옵셔널 파라미터.
+            //call by value, call by reference()
+            int num1 = 10;
+            int num2 = 20;
+            Swap(num1, num2);
+            Console.WriteLine($"{num1}{num2}");
+            //이런경우 num1과 num2의 값은 바뀌지 않는다.
+            Swap(ref num1, ref num2);
+            Console.WriteLine($"{num1}{num2}");
+            //num1과 num2의 값이 변경된다.
 
-            int num = Sum(10, 10, 10);
-            int DefaultNum = Sum();
-            Console.WriteLine(Sum("Hi", "Hello"));
-            Console.WriteLine(DefaultNum);
-        }
-
-        static int Sum(int a = 0, int b = 0)//매개변수 디폴트값. b에 값을 넣지않아도 실행이됨.
-        {//디폴트는 뒤쪽에서부터 채워 넣을 수 있다.
-            return a + b;
-        }
-        static string Sum(string a, string b)
-        {
-            return a + b;
-        }
-        static int Sum(int a, int b, int c)
-        {
-            return a + b + c;
         }
 
+        static void Swap(int a, int b)//a와 b의 값을 바꾸는 함수.>>main에서 실행시 값이 변경x
+        {
+            int temp = a;
+            a = b;
+            b = temp;
+        }
+
+        static void Swap(ref int a,ref int b)//a와 b의 값을 바꾸는 함수.>>main함수 값이 바뀜.
+        {
+            int temp = a;
+            a = b;
+            b = temp;
+        }
     }
 }
