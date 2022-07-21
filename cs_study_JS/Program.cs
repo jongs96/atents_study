@@ -10,74 +10,109 @@ namespace cs_study_JS
     {
         static void Main(string[] args)
         {
-            //Random 함수
-            //Random rnd = new Random();
-            //rnd 에 랜덤번호 부여
-            //삼각함수 table을 이용해 random값이 만들어짐.
-            //컴퓨터 내에 저장되어 있는 pi값이 이용됨.
-            //Random rnd = new Random(시드값)
-            //시드값의 의미 : table에서 몇번째부터의 값을 뽑아온다는 의미
-            //시드값을 설정하면 매번 실행할 때마다 같은값이 나온다.
-            //시드값을 비우면 현재시간 기반으로 시드값을 설정해서 랜덤번호 생성.
-            //**랜덤한 값을 뽑고나면 뽑는 위치가 이동이된다.**
+            //네자리의 숫자를 입력받고 입력받은 숫자를 한글로 출력하세요.
+            //4321->사삼이일
 
-            //Console.WriteLine(rnd.Next(1, 101));//rnd.Next((랜덤을생성할)첫번호, 마지막번호 +1)
-            //삼각함수 랜덤값이 편중되어 있는 경우가 있어 table을 직접 만들어서 사용하기도 한다.
+            //Console.WriteLine("네 자리의 숫자를 입력하시오.");
+            //int Num = int.Parse(Console.ReadLine());//문자를 변형하는 경우라.int.Parse이고 비슷한 자료형변환은 (변환자료형)으로가능
+            //string temp = "";
+            //int[] n = new int[4];
 
-            //크기가 6인 배열을 만들고 1~45의 랜덤한 값으로 로또 번호를 생성 하시오.(중복 숫자가 있으면 안됨.)
-            Random rnd = new Random();
-            int[] Num = new int[6];
-            bool check = true;
-            for (int n = 0; n < Num.Length; ++n)
+            //for (int i = 0; i < n.Length; i++)
+            //{
+            //    n[i] = Num % 10;
+            //    Num /= 10;
+            //}
+
+            //for (int i = 3; i >= 0; --i)
+            //{
+            //    switch (n[i])
+            //    {
+            //        case 0:
+            //            temp += "영";
+            //            break;
+            //        case 1:
+            //            temp += "일";
+            //            break;
+            //        case 2:
+            //            temp += "이";
+            //            break;
+            //        case 3:
+            //            temp += "삼";
+            //            break;
+            //        case 4:
+            //            temp += "사";
+            //            break;
+            //        case 5:
+            //            temp += "오";
+            //            break;
+            //        case 6:
+            //            temp += "육";
+            //            break;
+            //        case 7:
+            //            temp += "칠";
+            //            break;
+            //        case 8:
+            //            temp += "팔";
+            //            break;
+            //        case 9:
+            //            temp += "구";
+            //            break;
+            //        default:
+            //            break;
+            //    }
+            //}
+
+            //Console.WriteLine(temp);
+
+            //강사님 코드
+            int Num = int.Parse(Console.ReadLine());
+            int[] Numlist = new int[4];
+            int i = 0;
+
+            while(Num > 0)
             {
-                Num[n] = rnd.Next(1, 46);
+                Numlist[i] = Num % 10;
+                Num /= 10;
+                ++i;
+            }
 
-                while (check)
+            for(i = Numlist.Length -1; i>=0; --i)
+            {
+                switch(Numlist[i])
                 {
-                    for (int n2 = 0; n2 < Num.Length; ++n2)
-                    {
-                        if (Num[n] == Num[n2])
-                        {
-                            check = false;
-                            break;
-                        }
-                    }
-                    Num[n] = rnd.Next(1, 46);
+                    case 0:
+                        Console.WriteLine("영");
+                        break;
+                    case 1:
+                        Console.WriteLine("일");
+                        break;
+                    case 2:
+                        Console.WriteLine("이");
+                        break;
+                    case 3:
+                        Console.WriteLine("삼");
+                        break;
+                    case 4:
+                        Console.WriteLine("사");
+                        break;
+                    case 5:
+                        Console.WriteLine("오");
+                        break;
+                    case 6:
+                        Console.WriteLine("육");
+                        break;
+                    case 7:
+                        Console.WriteLine("칠");
+                        break;
+                    case 8:
+                        Console.WriteLine("팔");
+                        break;
+                    case 9:
+                        Console.WriteLine("구");
+                        break;
                 }
             }
-
-            foreach (int W in Num)
-            {
-                Console.WriteLine(W);
-            }
-
-            //강사님 답
-            //Random rnd = new Random();
-            //byte[] LottoNumber = new byte[6];
-
-            //for(int i = 0; i<LottoNumber.Length;)//반복조건 유의, 증감 제거
-            //{
-            //    bool check = false;
-            //    LottoNumber[i] = (byte)rnd.Next(1,46);// int형 rnd값 byte로 형변환.
-            //    for(int n = 0; n < i; ++n)
-            //    {
-            //        if(LottoNumber[n]==LottoNumber[i])
-            //        {
-            //            //중복숫자
-            //            check = true;
-            //            break;
-            //        }
-            //    }
-            //    if(!check)
-            //    {
-            //        ++i;
-            //    }
-            //}
-
-            //foreach(int num in LottoNumber)
-            //{
-            //    Console.WriteLine(num);
-            //}
         }
     }
 }
