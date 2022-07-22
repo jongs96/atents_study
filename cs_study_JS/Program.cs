@@ -9,21 +9,59 @@ using System.Threading.Tasks;
 
 namespace cs_study_JS
 {
-    class Program
+     class Program
     {
+        enum STATE
+        {// 00000,   00001,     00010,          00100,        01000          10000
+            NORMAL, HUNGRY = 1, SLEEPY = 1<<1, ANGRY =1 << 2, WEAK = 1 << 3, POISONED = 1 << 4
+        }
+
         static void Main(string[] args)// main 함수 생성규칙.
         {
-            //비트연산 &(AND), |(OR), ^(XOR), Shift(<<,>>)
-            //int num = 1;//총 32개의 전구 4byte * 8, num = 0000...1
-            int num1 = 3;  //0011
-            int num2 = 10; //1010
-                           //&연산 0010
-                           //|연산 1011
-                           //^연산 1001
-                           //shift연산 x<<y x를 왼쪽으로 y번 shift(빈공간은 0으로 채워진다)
+            //Mask : 다양한 상태를 한번에 표현하게 해줌
+            //비트 연산을 통해서 상태를 추가, 제거, 확인 할 수 있다.
+            int Mask = 0;
+            //상태추가(|)
+            //0000 0001 -> 0001
+            Mask |= (int)STATE.HUNGRY;
+            //0001 0010 -> 0101
+            Mask |= (int)STATE.ANGRY;
 
-            int res = 11 >> 2;
-            Console.WriteLine(res);
+            //확인(&) 0101 & 0001 -> 0001
+            hasState(Mask, STATE.HUNGRY);
+
+            //제거(^)0101^0001 -> 0100   xor : 값이 다를때만 1
+            Mask ^= (int)STATE.HUNGRY;
+            hasState(Mask, STATE.HUNGRY);
+
+            int num = ~0;
+            Console.WriteLine(num);
         }        
+
+        static void hasState(int mask, STATE s)
+        {
+            int res = mask & (int)s;
+            switch((STATE)res)
+            {
+                case STATE.ANGRY:
+                    Console.WriteLine("화가나요.");
+                    break;
+                case STATE.HUNGRY:
+                    Console.WriteLine("배고파요.");
+                    break;
+                case STATE.POISONED:
+                    Console.WriteLine("중독상태입니다.");
+                    break;
+                case STATE.SLEEPY:
+                    Console.WriteLine("졸려요.");
+                    break;
+                case STATE.WEAK:
+                    Console.WriteLine("아파요.");
+                    break;
+                default:
+                    Console.WriteLine("???");
+                    break;
+            }
+        }
     }
 }
