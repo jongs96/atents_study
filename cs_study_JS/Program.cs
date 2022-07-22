@@ -11,32 +11,18 @@ namespace cs_study_JS
 {
     class Program
     {
-        static void Main(string[] args)
-        {//매개변수 디폴트값==옵셔널 파라미터.
-            //call by value(값으로 호출), call by reference(참조로 호출)
-            int num1 = 10;
-            int num2 = 20;
-            Swap(num1, num2);
-            Console.WriteLine($"{num1} {num2}");
-            //이런경우 num1과 num2의 값은 바뀌지 않는다.
-            Swap(ref num1, ref num2);
-            Console.WriteLine($"{num1} {num2}");
-            //num1과 num2의 값이 변경된다.
-            //ref 키워드를 붙이지 않으면 call by value형식 호출이다.
+        static void Main(string[] args)// main 함수 생성규칙.
+        {
+            //따로 선언하지 않아도 call by reference 로 되는 경우
+            //배열의 경우는 애초부터 참조형이다.
+            int[] Numlist = { 1, 2, 3, 4, 5 };
+            Change(Numlist);
+            Console.WriteLine(Numlist[0]);
         }
 
-        static void Swap(int a, int b)//a와 b의 값을 바꾸는 함수.>>main에서 실행시 값이 변경x
+        static void Change(int[] list)
         {
-            int temp = a;
-            a = b;
-            b = temp;
-        }
-
-        static void Swap(ref int a,ref int b)//a와 b의 값을 바꾸는 함수.>>main함수 값이 바뀜.
-        {
-            int temp = a;
-            a = b;
-            b = temp;
+            list[0] = 100;
         }
     }
 }//call by value : 값을 복사해서 사용
