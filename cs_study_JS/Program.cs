@@ -11,19 +11,119 @@ namespace cs_study_JS
 {
     class Program
     {
+        enum RockPaperScissors//*새로운 개념 >>> enum : 열거형 type
+        {//RockPaperScissors라는 타입을 만든 것. 
+            Gawi, Bawi, Bo//해당 값만 가질 수 있고 정수형 타입이다.
+        }//실제 값 Gawi = 0, Bawi = 1, Bo = 2 >> 값을 넣지 않는 경우 Default
+        //값을 지정 가능 ex) Gawi=100, Bawi, Bo >> Gawi=100, Bawi =101, Bo =102
+        //각각 지정도 가능하다
         static void Main(string[] args)// main 함수 생성규칙.
         {
-            //따로 선언하지 않아도 call by reference 로 되는 경우
-            //배열의 경우는 애초부터 참조형이다.
-            int[] Numlist = { 1, 2, 3, 4, 5 };
-            Change(Numlist);
-            Console.WriteLine(Numlist[0]);
+            //가위 바위 보 게임
+            //시작할 대 1000원을 가지고 시작한다.
+            //컴퓨터가 랜덤하게 가위 바위 보 중 하나를 정한다.
+            //플레이어가 가위 바위 보를 낸다.
+            //(1-> 가위, 2-> 바위, 3->보)로 처리함.
+            //승리하면 100원을 받고, 지면 100원을 잃는다.
+            //모든 돈을 잃으면 게임오버, 2000원이 되면 승리
+
+            //강사님 코드
+            int Money = 1000;
+            Random rnd = new Random();//컴퓨터가 랜덤하게 가위 바위 보 중 하나를 정한다.
+
+            while(Money!=0 && Money <2000)
+            {
+                RockPaperScissors Computer = (RockPaperScissors)rnd.Next(0, 3);//Random 값 형변환
+                                                                               //게임을 만들 때 UI/UX를 고려해라. UX: 유저의 경험.
+                Console.WriteLine("가위,바위,보 중 하나를 선택하세요![1.가위 2.바위 3.보]");
+                RockPaperScissors Player = (RockPaperScissors)(int.Parse(Console.ReadLine()) - 1);
+
+                int result = IsWin(Computer, Player);
+                Money += result * 100;
+                switch(result)
+                {
+                    case -1:
+                        Console.WriteLine($"당신이 졌어요. 컴퓨터:{Print(Computer)} 당신:{Print(Player)} Money{Money}");
+                        break;
+                    case 0:
+                        Console.WriteLine($"비겼네요. 컴퓨터:{Print(Computer)} 당신:{Print(Player)} Money{Money}");
+                        break;
+                    case 1:
+                        Console.WriteLine($"당신이 이겼어요. 컴퓨터:{Print(Computer)} 당신:{Print(Player)} Money{Money}");
+                        break;
+                }
+            }
+
+            if (Money == 0)
+            {
+                Console.WriteLine("당신은 패배 하였습니다.");
+            }
+            else
+            {
+                Console.WriteLine("당신은 승리 하였습니다.");
+            }
         }
 
-        static void Change(int[] list)
+        static string Print(RockPaperScissors rps)
         {
-            list[0] = 100;
+            switch(rps)
+            {
+                case RockPaperScissors.Bawi:
+                    return "바위";
+                case RockPaperScissors.Bo:
+                    return "보";
+                case RockPaperScissors.Gawi:
+                    return "가위";
+            }
+            return "";
         }
+
+        //강사님 함수
+        static int IsWin(RockPaperScissors comp, RockPaperScissors player)
+        {
+            switch (comp)
+            {
+                case RockPaperScissors.Bawi:
+                    switch (player)
+                    {
+                        case RockPaperScissors.Bawi:
+                            return 0;
+                        case RockPaperScissors.Bo:
+                            return 1;
+                        case RockPaperScissors.Gawi:
+                            return -1;
+                    }
+                    break;
+
+                case RockPaperScissors.Bo:
+                    switch (player)
+                    {
+                        case RockPaperScissors.Bawi:
+                            return -1;
+                        case RockPaperScissors.Bo:
+                            return 0;
+                        case RockPaperScissors.Gawi:
+                            return 1;
+                    }
+                    break;
+
+                case RockPaperScissors.Gawi:
+                    switch (player)
+                    {
+                        case RockPaperScissors.Bawi:
+                            return 1;
+                        case RockPaperScissors.Bo:
+                            return -1;
+                        case RockPaperScissors.Gawi:
+                            return 0;
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+            return 0;
+        }
+
     }
-}//call by value : 값을 복사해서 사용
-//call by reference : 해당 변수를 직접 사용
+}//programing 할때 최대한 실수 없는 코드를 짜라. bug를 줄일 수 있다.
