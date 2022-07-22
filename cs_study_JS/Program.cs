@@ -41,6 +41,13 @@ namespace cs_study_JS
                                                                                //게임을 만들 때 UI/UX를 고려해라. UX: 유저의 경험.
                 Console.WriteLine($"배팅할 금액과 가위,바위,보 중 하나를 입력하세요!\n[배팅 가능금액:100원 ~ {Money}원][1.가위 2.바위 3.보]");
                 Bet = int.Parse(Console.ReadLine());
+                
+                while(Bet>Money || Bet<100)// 배팅금액 제한
+                {
+                    Console.WriteLine("배팅 금액을 다시 입력하세요.");
+                    Bet = int.Parse(Console.ReadLine());
+                }
+
                 RockPaperScissors Player = (RockPaperScissors)(int.Parse(Console.ReadLine()) - 1);
 
                 int result = IsWin(Computer, Player);
