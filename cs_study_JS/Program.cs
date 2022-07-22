@@ -27,34 +27,39 @@ namespace cs_study_JS
             //승리하면 100원을 받고, 지면 100원을 잃는다.
             //모든 돈을 잃으면 게임오버, 2000원이 되면 승리
 
+            //심화 게임. 플레이어가 돈을 배팅한다 최소금액 100원
+            //플레이어가 배팅한 돈만큼 증/감.
+
             //강사님 코드
             int Money = 1000;
+            int Bet;
             Random rnd = new Random();//컴퓨터가 랜덤하게 가위 바위 보 중 하나를 정한다.
 
-            while(Money!=0 && Money <2000)
+            while(Money > 0 && Money < 2000)
             {
                 RockPaperScissors Computer = (RockPaperScissors)rnd.Next(0, 3);//Random 값 형변환
                                                                                //게임을 만들 때 UI/UX를 고려해라. UX: 유저의 경험.
-                Console.WriteLine("가위,바위,보 중 하나를 선택하세요![1.가위 2.바위 3.보]");
+                Console.WriteLine($"배팅할 금액과 가위,바위,보 중 하나를 입력하세요!\n[배팅 가능금액:100원 ~ {Money}원][1.가위 2.바위 3.보]");
+                Bet = int.Parse(Console.ReadLine());
                 RockPaperScissors Player = (RockPaperScissors)(int.Parse(Console.ReadLine()) - 1);
 
                 int result = IsWin(Computer, Player);
-                Money += result * 100;
+                Money += result * Bet;
                 switch(result)
                 {
                     case -1:
-                        Console.WriteLine($"당신이 졌어요. 컴퓨터:{Print(Computer)} 당신:{Print(Player)} Money{Money}");
+                        Console.WriteLine($"당신이 졌어요. 컴퓨터:{Print(Computer)} 당신:{Print(Player)} Money:{Money}원\n");
                         break;
                     case 0:
-                        Console.WriteLine($"비겼네요. 컴퓨터:{Print(Computer)} 당신:{Print(Player)} Money{Money}");
+                        Console.WriteLine($"비겼네요. 컴퓨터:{Print(Computer)} 당신:{Print(Player)} Money:{Money}원\n");
                         break;
                     case 1:
-                        Console.WriteLine($"당신이 이겼어요. 컴퓨터:{Print(Computer)} 당신:{Print(Player)} Money{Money}");
+                        Console.WriteLine($"당신이 이겼어요. 컴퓨터:{Print(Computer)} 당신:{Print(Player)} Money:{Money}원\n");
                         break;
                 }
             }
 
-            if (Money == 0)
+            if (Money <= 0)
             {
                 Console.WriteLine("당신은 패배 하였습니다.");
             }
@@ -124,6 +129,5 @@ namespace cs_study_JS
             }
             return 0;
         }
-
     }
 }//programing 할때 최대한 실수 없는 코드를 짜라. bug를 줄일 수 있다.
