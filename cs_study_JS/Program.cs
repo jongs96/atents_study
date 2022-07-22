@@ -32,23 +32,45 @@ namespace cs_study_JS
 
             //강사님 코드
             int Money = 1000;
-            int Bet;
+            int Bet = 0;
             Random rnd = new Random();//컴퓨터가 랜덤하게 가위 바위 보 중 하나를 정한다.
 
             while(Money > 0 && Money < 2000)
             {
                 RockPaperScissors Computer = (RockPaperScissors)rnd.Next(0, 3);//Random 값 형변환
-                                                                               //게임을 만들 때 UI/UX를 고려해라. UX: 유저의 경험.
-                Console.WriteLine($"배팅할 금액과 가위,바위,보 중 하나를 입력하세요!\n[배팅 가능금액:100원 ~ {Money}원][1.가위 2.바위 3.보]");
-                Bet = int.Parse(Console.ReadLine());
-                
+                //강사님 버전 
+                do
+                {
+                    Console.WriteLine("배팅할 금액을 정하세요.");
+                    //Bet = int.Parse(Console.ReadLine());
+                    if(!int.TryParse(Console.ReadLine(), out Bet))//TryParse : int 형 변환가능하면 true값 반환 아니면 false값.
+                    {//TryParse(변환할 것, out 변수)
+                        Console.WriteLine("잘못입력하셨습니다.");
+                    }
+                }
+                while (Bet < 100 || Bet > Money);                                                   //게임을 만들 때 UI/UX를 고려해라. UX: 유저의 경험.
+
+                int InputData = 0;
+                Console.WriteLine($"가위,바위,보 중 하나를 입력하세요![1.가위 2.바위 3.보]");
+                while(InputData<1 || InputData > 3)
+                {
+                    while (!int.TryParse(Console.ReadLine(), out InputData))
+                    {
+                        Console.WriteLine("잘못입력하셨습니다.");
+                    }
+                    if (InputData < 1 || InputData > 3)
+                    {
+                        Console.WriteLine("잘못입력하셨습니다.");
+                    }
+                }
+                /*Bet = int.Parse(Console.ReadLine());
                 while(Bet>Money || Bet<100)// 배팅금액 제한
                 {
-                    Console.WriteLine("배팅 금액을 다시 입력하세요.");
+                    Console.WriteLine($"배팅 금액을 다시 입력하세요.\n[배팅 가능금액:100원 ~ {Money}원]");
                     Bet = int.Parse(Console.ReadLine());
                 }
-
-                RockPaperScissors Player = (RockPaperScissors)(int.Parse(Console.ReadLine()) - 1);
+                */
+                RockPaperScissors Player = (RockPaperScissors)(InputData-1);
 
                 int result = IsWin(Computer, Player);
                 Money += result * Bet;
@@ -138,3 +160,5 @@ namespace cs_study_JS
         }
     }
 }//programing 할때 최대한 실수 없는 코드를 짜라. bug를 줄일 수 있다.
+
+//예외사항 정해진 규칙대로 당연히 돌아갈 것이라고 생각하면 안됨.

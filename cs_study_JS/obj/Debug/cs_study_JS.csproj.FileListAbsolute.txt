@@ -1,7 +1,7 @@
 D:\G-Class오전반\cs_study_JS\cs_study_JS\bin\Debug\cs_study_JS.exe.config
 D:\G-Class오전반\cs_study_JS\cs_study_JS\bin\Debug\cs_study_JS.exe
 D:\G-Class오전반\cs_study_JS\cs_study_JS\bin\Debug\cs_study_JS.pdb
-D:\G-Class오전반\cs_study_JS\cs_study_JS\obj\Debug\cs_study_JS.csproj.AssemblyReference.cache
 D:\G-Class오전반\cs_study_JS\cs_study_JS\obj\Debug\cs_study_JS.csproj.CoreCompileInputs.cache
 D:\G-Class오전반\cs_study_JS\cs_study_JS\obj\Debug\cs_study_JS.exe
 D:\G-Class오전반\cs_study_JS\cs_study_JS\obj\Debug\cs_study_JS.pdb
+D:\G-Class오전반\cs_study_JS\cs_study_JS\obj\Debug\cs_study_JS.csproj.AssemblyReference.cache
