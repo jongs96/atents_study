@@ -23,14 +23,16 @@ namespace cs_study_JS
             //char a = '가';// 한글자씩 입력할 경우''
             //a = (char)(a + 2);
             //Console.WriteLine(a);
-
-            string name = "Kim";
-            Console.WriteLine(name[1]);
+            Console.WriteLine(AddJosa("보험", "를", "을"));
         }
 
-        static string AddJosa(string a, string josa1, string josa2)
-        {//단어에 받침이 있는경우(1) 없는경우(2)의 조사를 붙여주는 함수
-
+        static string AddJosa(string name, string moum, string jaum)
+        {//단어에 받침이 있는경우(2) 없는경우(1)의 조사를 붙여주는 함수
+            if((name[name.Length-1]-16)%28 == 0)//유니코드표의 규칙 상 28마다 받침이 없는 글자 반복됨.
+            {//시작지점을 0으로 만들기위해 -16 
+                return name + moum;
+            }
+            return name + jaum;
         }
         //static int Power(int x, int y)// 제곱의 값 구하는 재귀함수.
         //{
