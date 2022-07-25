@@ -11,13 +11,29 @@ using System.Threading.Tasks;
 //접근지정자로 인해 가능한 것
 //private-개인적인 것 외부에 숨기는 것 : ex. 스마트폰의 내부 칩들 - 손상되면 안되는 것. 정보 은폐, 기능 고정 
 //protected, public : 공개해야하는 것.
-//2. 상속
-//3. 
-//4.
+//2. 상속 (부모⊂자식 성립하게 생성해야함) - 가사함수, 업캐스팅, 다운캐스팅
+//자식이 부모의 모든것을 상속받아도 부모의private는 자식도 접근할 수 없다.
+//3. 추상화 - 추상클래스는 자신의 인스턴스를 만들 수 없다.(상속만 가능) abstract, 추상 함수(순수가상함수)
+//4. 다형성
+
+//기술면접 시 자주나오는 내용임.
 
 namespace cs_study_JS
 {
-    class Animal // 동물 이라는 설계도
+    //class mammalia : Animal// 상속의 상속은 가능하나 여러가지 부모를 동시에 상속받을 수는 없다.
+    //{
+
+    //}
+    //다중상속이 필요한 경우 사용하는 것
+    interface LandAnimal//interface는 함수만을 선언할 수 있음. 구현은 불가.
+    {
+        void Run();
+    }
+    interface Birds
+    {
+        void Fly();
+    }
+    abstract class Animal // 동물 이라는 설계도 
     {
         //데이타(정보) 은폐 - 변수로 설계 >>멤버 변수(클래스에 속해있는 변수라는 의미)
         string name;//private 이라는 접근지정자가 생략되어있는 것.
@@ -40,7 +56,7 @@ namespace cs_study_JS
             }
             */
         }//정해진 포맷 /c#에만 존재.
-        int age;
+        protected int age;//protected캡슐화를 깨트리지 않으면서 가족은 사용할 수 있게 만드는 접근지정자 
         float height;
         float weight;
         //기능, (행동) - 함수 >>멤버 함수(클래스에 속해있는 함수라는 의미)
@@ -83,14 +99,15 @@ namespace cs_study_JS
 
         }
         //가상함수(virtual) 테이블
-        public virtual void Cry()
-        {
+        public abstract void Cry();//추상함수는 구현할 필요가 x
+        /*{
             Console.WriteLine("...");
-        }
+        }*/
     }
 
-    class Dog : Animal //Dog class는 animal class 를 포함함<상속함> 
-    {
+    class Dog : Animal, LandAnimal //Dog class는 animal class 를 포함함<상속함> 
+    {//interface를 상속받은 경우는 해당하는 함수를 무조건 구현해야함.
+    //interface로 구현된 함수는public을 무조건 붙여야함
         public Dog(string name) : base(name) //>>부모 생성자를 호출하는 방법 : 생성자 inicialrise 
         {
 
@@ -98,6 +115,11 @@ namespace cs_study_JS
         public override void Cry()//override(생략가능함.) : 재정의 (부모에서 가상화 한 것)
         {//재정의 된 것이 없으면 부모의 값이 실행됨.
             Console.WriteLine("멍멍!");
+        }
+
+        public void Run()
+        {
+
         }
     }
     class Cat : Animal
@@ -112,6 +134,37 @@ namespace cs_study_JS
             Console.WriteLine("야옹 야옹~");
         }
     }
+
+    class Pig : Animal
+    {
+        public Pig(string name) : base(name)
+            {
+
+            }
+        public override void Cry()
+        {//추상함수는 
+            Console.WriteLine("꿀꿀");
+        }
+    }
+    class Unicon : Animal, LandAnimal, Birds
+    {
+        public Unicon(string name) : base(name)
+        {
+
+        }
+        public override void Cry()
+        {
+            Console.WriteLine("우웅~");
+        }
+        public void Run()
+        {
+
+        }
+        public void Fly()
+        {
+
+        }
+    }//class는 다중상속(여러부모를 상속x)안되므로 interface를 활용하게됨.
     class Program
     {
         static void Main(string[] args)// main 함수 생성규칙.
@@ -145,12 +198,19 @@ namespace cs_study_JS
             //dog.Cry();
 
             //불가예시 : 다른 자식으로 형변환
-            Dog dog = animals[0] as Dog;//as키워드로(검사) 
+            Dog dog = animals[0] as Dog;//downcasting은 as키워드로(검사) 해서 형변환하는 것이 좋다
+            /*
             if(dog!= null)//변환이 가능 할 때만 
             {
                 dog.Cry();
             }
+            */
+            dog?.Cry();//위의코드와 같은 의미 null이 아니면 (변환이 가능하면)cry 실행.
 
+            //3 추상화
+            //Animal ani = new Animal("any"); //>>추상화를 시키면 상속만됨. 
+            Birds birds = dog as Birds;//interface도 참조형 변수로 사용이 가능함.
+            birds?.Fly();
         }
     }
 }
