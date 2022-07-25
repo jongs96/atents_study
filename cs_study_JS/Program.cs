@@ -16,6 +16,8 @@ using System.Threading.Tasks;
 //3. 추상화 - 추상클래스는 자신의 인스턴스를 만들 수 없다.(상속만 가능) abstract, 추상 함수(순수가상함수)
 //4. 다형성
 
+//객체 지향 프로그래밍을 할 때에는 가상세계를 만든다고 생각하며 머리속에 이미지화 해서 프로그래밍해야한다.
+
 //기술면접 시 자주나오는 내용임.
 
 namespace cs_study_JS
@@ -165,6 +167,7 @@ namespace cs_study_JS
 
         }
     }//class는 다중상속(여러부모를 상속x)안되므로 interface를 활용하게됨.
+    
     class Program
     {
         static void Main(string[] args)// main 함수 생성규칙.
