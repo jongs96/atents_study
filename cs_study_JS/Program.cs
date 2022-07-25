@@ -9,54 +9,27 @@ using System.Threading.Tasks;
 
 namespace cs_study_JS
 {
-     class Program
+    class Program
     {
         static void Main(string[] args)// main 함수 생성규칙.
+        {//함수 심화(재귀함수) : 함수 안에서 자기 자신을 호출하는 것.
+            //Console.WriteLine(TotalSum(100));
+            //100 + (99 + (98 + (... + 조건이 없다면 무한히 더함.
+            //연습문제 : 제곱연산을 하는 함수를 재귀함수로 구현하세요.
+            //Power(3, 9) = 3 * (3 * (3 * (3 *  ...)))9번
+            Console.WriteLine(Power(2, 8));
+        }
+        static int Power(int x, int y)// 제곱의 값 구하는 재귀함수.
         {
-            //숫자를 입력받고 입력 받은 숫자를 비트로 출력하세요.
-            //hint
-            //Num & 1 = 1이면 마지막 bit가 1이라는 의미 
-            //Num & (1 << 1) 1이면 마지막 2번째 비트가 1이라는 의미
-            Console.WriteLine("숫자를 입력하세요.");
-            int Num = int.Parse(Console.ReadLine());
-            //Change(Num);
-            //선생님코드
-            string res = "";
-            int check = 1 << 31;// < 뱡향으로 shift는 빈공간 0,
-                                // >방향 첫자리가 1인 상태에서 shift는 빈공간 1로 채워짐
-            for (int i = 31; i >= 0; --i)
-            {
-                check = 1 << i;
-                if ((Num&check)==0)
-                {
-                    //0
-                    res += "0";
-                }
-                else
-                {
-                    res += "1";
-                }
-            }
-            Console.WriteLine(res);
-        }        
-
-        //static void Change(int num)
-        //{
-        //    int bit = 1<<31;
-        //    string number = "";
-        //    while(bit!=0)
-        //    {
-        //        if((num & bit) == bit)
-        //        {
-        //            number += "1";
-        //        }
-        //        else
-        //        {
-        //            number += "0";
-        //        }
-        //        bit = bit >> 1;
-        //    }
-        //    Console.WriteLine(number);
-        //}
+            if (y == 1)
+                return x;
+            return x * Power(x, y - 1); 
+        }
+        static int TotalSum(int n)
+        {// 반복문에서 조건을 잘못준다면 무한반복되는 것처럼 멈추는 조건을 제대로 설정해야함.
+            if (n == 1)
+                return 1;
+            return n + TotalSum(n - 1);// 종료 조건을 제대로 명시해야한다.
+        }
     }
 }
