@@ -9,38 +9,65 @@ using System.Threading.Tasks;
 //객체지향 4대 특성
 namespace cs_study_JS
 {
-    public delegate int Func(int a, int b);//delegate 반환 값 int , a,b 인자를 전달받는 함수type이면
-                                           //저장이 가능하다.
     class Program
     {
-       
+
         static void Main(string[] args)// main 함수 생성규칙.
         {
-            Random rnd = new Random();
-            List<int> list = new List<int>();
-            for(int i =0; i<10; ++i)
+            //동적배열
+            //기존에 만들었던 배열은 정적배열.
+            //int[] list = new int[100]; //배열의 크기가 100으로 고정되어있음
+            //ex)100명의 학생이 학급에 있었다가 1명이 전학이 와 1개의 자리가 더 필요할 경우.
+            //using System.Collections.Generic;입력 해당 namespace에 동적배열 관련 내용들이있다.
+            List<int> list = new List<int>() { 1, 2, 3, 4, 5 };//동적배열 생성/값할당
+            //배열의 크기 [5] 1,2,3,4,5가 들어있는
+            list.Add(10);//배열의 크기를 늘려주는 함수 10원소 추가
+            list.Add(20);
+            list.Add(20);
+            list.Add(30);
+            DrawList<int>(list);
+
+            list.Remove(10);//해당되는 값 중 첫번째 값을 지운다
+            DrawList<int>(list);
+
+            list.RemoveAt(3);//해당위치 인덱스 값을 지운다.
+            DrawList<int>(list);
+
+            //list.RemoveAll(IsEqual);//해당 숫자 모두를 지운다. 값을 찾는 함수를 요구함
+            //값대신 함수가 parameter로 전달 하는 delegate
+            /*
+            for(int i = 0; i < list.Count;)//배열은 Length, list는 Count
             {
-                list.Add(rnd.Next(1, 101));
+                if(IsEqual(list[i]))
+                {
+                    list.RemoveAt(i);
+                    continue;
+                }
+                ++i;//자동증가 안하는 이유. 지웠을 때, 지나치는 index가 생김.
+            }Remove all 같은내용
+            */
+            //익명함수 - 람다식(익명함수를 표현하는 문법)
+            //list.RemoveAll((int n) => { return n == 20; });
+            int num = 20;
+            list.RemoveAll(n => n == num);//윗줄 이렇게 생략가능함. 이런식을 람다식이라함.
+            /*
+            list.RemoveAll(
+                (int n)=>
+                {
+                    return n == 20;
+                }); 다른곳에서 호출할 수 없는 이름, 반환값이 없는 함수를 익명함수라고 함.
+             */
+            list.Remove(30);
+            DrawList<int>(list);
+
+            if (list.Contains(30))//해당 list에 어떤값이 있는지 확인해야할 경우 ,true/false 값 반환
+            {
+                Console.WriteLine("30이 존재합니다.");
             }
-            DrawList<int>(list);
-            list.Sort();//오름차순 정렬
-            DrawList<int>(list);
-            //list.Sort(Compare);//내림차순 정렬
-            Func func = (a, b) => a > b ? -1 : a == b ? 0 : 1;//이런식으로 함수를 저장해서 변수처럼 쓴다.
-            //사용 예시delegate
-            func(1, 2);
-            func?.Invoke(1, 2);//func 값이 null이 아니면 저장된함수 사용.
-
-            list.Sort((a, b) => a > b ? -1 : a == b ? 0 : 1);//람다식을 이용한 익명함수
-            //list.Sort((a, b) => a > b ? 1 : a == b ? 0 : -1);//오름차순
-            DrawList<int>(list);
-        }
-
-        static int Compare(int a, int b)
-        {
-            if (a > b) return -1;//Sort함수에 -1, 0 return 되면 값을 바꾸지않고
-            else if (a == b) return 0;
-            else return 1;         //바꿔야하는 경우 return 값이 1이 되면된다.
+            else
+            {
+                Console.WriteLine("30이 존재하지 않습니다.");
+            }
         }
         static bool IsEqual(int n)
         {
@@ -51,9 +78,9 @@ namespace cs_study_JS
             return n == 30;
         }//상황에 따라 필요한 함수를 계속 만들어야하고, 순간적 필요에 따라 못만드는 것이 불편함
         //익명함수(중 람다식)를 이용한다.
-        static void DrawList<T>(List<T>list)
+        static void DrawList<T>(List<T> list)
         {
-            foreach(T t in list)
+            foreach (T t in list)
             {
                 Console.Write($"[{t}]");
             }
@@ -77,5 +104,4 @@ namespace cs_study_JS
 
 //boxing unboxing
 
-//delegate : 함수를 저장할 수 있는 변수
-//잘 다룰 줄 알아야 한다.
+//delegate 잘 다룰 줄 알아야 한다.
