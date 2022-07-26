@@ -32,7 +32,7 @@ namespace cs_study_JS
 
             list.RemoveAt(3);//해당위치 인덱스 값을 지운다.
             DrawList<int>(list);
-
+            //
             //list.RemoveAll(IsEqual);//해당 숫자 모두를 지운다. 값을 찾는 함수를 요구함
             //값대신 함수가 parameter로 전달 하는 delegate
             /*
