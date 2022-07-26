@@ -9,84 +9,82 @@ using System.Threading.Tasks;
 //객체지향 4대 특성
 namespace cs_study_JS
 {
-    struct Student //c#에서는 class와 구조체가 같게 인식됨.
-    {//구조체는 사용법도 똑같지만 참조형이 아닌 '값'형이다.
-        static int TotalNum = 0;// static 변수(정적변수) 데이타 영역에 생김
-        //data영역에 생기는 정적변수는 프로그램이 시작될때 생성, 끝날때 사라짐.
-        //public int TotalNum = 0;으로 생성을 해버리면 a,b,c학생이 각자 다른 TotalNum을 가지게되버림.
-        string name;//필드
-        public string Name//외부에서 사용해야해서 프로퍼티를 만듦
-        {//Name을 가지고 출력 입력을 함.
-            get => name;
-            set => name = value;
-        }
-        public Student(string name)
-        {
-            this.name = name;
-            TotalNum++;  //멤버변수라 class내에서 사용이 가능하다.
-        }
-        public void Out()
-        {
-            TotalNum--;
-        }
-
-        //public static int GetTotalCount() => TotalNum;//GetTotalCount함수를 호출하면 TotalNum return
-        //함수에 static이 붙으면 인스탄스와는 상관이 없어짐.
-        public static int GetTotalCount()
-        {
-            //Name = "??"; //static함수는 인스탄스와 연관성이 없어져서 인스탄스 안에만 존재하는 값은 사용할 수 x
-            return TotalNum;
-        }
-    }
-
-    //***class(인스탄스), 배열의 이름(배열상자의 첫번째) : 태생이 참조형***
     class Program
     {
-        //컬렉션 -Generic- c++의 STL
-        //Boxing Unboxing
+       
         static void Main(string[] args)// main 함수 생성규칙.
         {
-            //IsEqual<string>("a", "a");//사용을 할 때, 타입을 정해줌
-            //object - 모든 변수, 클래스의 부모타입.
-            //IsEqual(1, "d");//object로하면 모든 타입 다사용가능 
-            //int a = 10;
-            //object b = a;//object 는 참조형. heap영역에 (int, 10)의 값이 생김 => boxing
-            //int c = (int)b;//=>unboxing c box안에 type 확인 후 값을 넣음.
-            //b = 20;//b에 20이 들어간 것이 아닌 참조가 바뀐 것.
-            //Boxing , unboxing이 일어나면 시간이 오래걸려 속도가 느려질 수 있다.
-            //일어나면 좋지않다.
-            object temp = 1;
-            temp = "kim";
+            //동적배열
+            //기존에 만들었던 배열은 정적배열.
+            //int[] list = new int[100]; //배열의 크기가 100으로 고정되어있음
+            //ex)100명의 학생이 학급에 있었다가 1명이 전학이 와 1개의 자리가 더 필요할 경우.
+            //using System.Collections.Generic;입력 해당 namespace에 동적배열 관련 내용들이있다.
+            List<int> list = new List<int>() {1, 2, 3, 4, 5};//동적배열 생성/값할당
+            //배열의 크기 [5] 1,2,3,4,5가 들어있는
+            list.Add(10);//배열의 크기를 늘려주는 함수 10원소 추가
+            list.Add(20);
+            list.Add(20);
+            list.Add(30);
+            DrawList<int>(list);
+
+            list.Remove(10);//해당되는 값 중 첫번째 값을 지운다
+            DrawList<int>(list);
+
+            list.RemoveAt(3);//해당위치 인덱스 값을 지운다.
+            DrawList<int>(list);
+
+            //list.RemoveAll(IsEqual);//해당 숫자 모두를 지운다. 값을 찾는 함수를 요구함
+            //값대신 함수가 parameter로 전달 하는 delegate
+            /*
+            for(int i = 0; i < list.Count;)//배열은 Length, list는 Count
+            {
+                if(IsEqual(list[i]))
+                {
+                    list.RemoveAt(i);
+                    continue;
+                }
+                ++i;//자동증가 안하는 이유. 지웠을 때, 지나치는 index가 생김.
+            }Remove all 같은내용
+            */
+            //익명함수 - 람다식
+            //list.RemoveAll((int n) => { return n == 20; });
+            int num = 20;
+            list.RemoveAll(n => n == num);//윗줄 이렇게 생략가능함. 이런식을 람다식이라함.
+            /*
+            list.RemoveAll(
+                (int n)=>
+                {
+                    return n == 20;
+                }); 다른곳에서 호출할 수 없는 이름, 반환값이 없는 함수를 익명함수라고 함.
+             */
+            list.Remove(30);
+            DrawList<int>(list);
+
+            if(list.Contains(30))//해당 list에 어떤값이 있는지 확인해야할 경우
+            {
+                Console.WriteLine("30이 존재합니다.");
+            }
+            else
+            {
+                Console.WriteLine("30이 존재하지 않습니다.");
+            }
         }
-        /*
-        static void ChangeName(string str, string name)
+        static bool IsEqual(int n)
         {
-            str = name;
+            return n == 20;
         }
-        */
-        static bool IsEqual(object a, object b)
+        static bool IsEqual2(int n)
         {
-            return a.Equals(b);
-        }//같은 형태
-        //static bool IsEqual<T1, T2>(T1 a, T2 b)
-        ////<T>임의의 T라는 의미. template약자라 보통T라고 적음. 2~3개도 지정가능
-        //{
-        //    return a.Equals(b);
-        //} 이러한 generic type으로 하는것이 boxing unboxing 이 일어나지 않는다.
-        /*
-        static int Sum(int a, int b)
+            return n == 30;
+        }//상황에 따라 필요한 함수를 계속 만들어야하고, 순간적 필요에 따라 못만드는 것이 불편함
+        //익명함수(중 람다식)를 이용한다.
+        static void DrawList<T>(List<T>list)
         {
-            return a + b;
-        }
-        static float Sum(float a, float b)
-        {
-            return a + b;
-        }
-        //같은 함수, 같은역할인데 다른 데이터타입이라 2개를 만드는것이 비효율적이다.
-        */
-        static void ChangeName(Student s, string name)//이름 변경하는 함수
-        {
-            s.Name = name; //s라는 상자에 a가 참조하는 애를 참조하게 했다.
+            foreach(T t in list)
+            {
+                Console.Write($"[{t}]");
+            }
+            Console.WriteLine();
         }
     }
 }
