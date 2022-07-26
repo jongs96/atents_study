@@ -9,19 +9,20 @@ using System.Threading.Tasks;
 //객체지향 4대 특성
 namespace cs_study_JS
 {
-    class Student
-    {
+    struct Student //c#에서는 class와 구조체가 같게 인식됨.
+    {//구조체는 사용법도 똑같지만 참조형이 아닌 '값'형이다.
         static int TotalNum = 0;// static 변수(정적변수) 데이타 영역에 생김
         //data영역에 생기는 정적변수는 프로그램이 시작될때 생성, 끝날때 사라짐.
         //public int TotalNum = 0;으로 생성을 해버리면 a,b,c학생이 각자 다른 TotalNum을 가지게되버림.
-        string name = "";//필드
+        string name;//필드
         public string Name//외부에서 사용해야해서 프로퍼티를 만듦
         {//Name을 가지고 출력 입력을 함.
             get => name;
             set => name = value;
         }
-        public Student()
+        public Student(string name)
         {
+            this.name = name;
             TotalNum++;  //멤버변수라 class내에서 사용이 가능하다.
         }
         public void Out()
@@ -58,24 +59,27 @@ namespace cs_study_JS
 
             //Student.Name = ""; //안됨. 설계도의 이름을 바꾸는것이 안되어서
             //Student.TotalNum = 1;//heap공간에 만들어진 모든 인스탄스는 data영역에 만들어진 TotalNumdmf rhddbgka
-            Student a = new Student();
-            Student b = new Student();
-            Student c = new Student();
-            a.Name = "LL"; //LL > 리터럴 상수.
-            //Console.WriteLine($"현재 학생은 총 {Student.TotalNum}입니다.");
-            //Console.WriteLine($"현재 학생은 총 {GetTotalCount()}입니다.");
-            //Console.WriteLine($"현재 학생은 총 {GetTotalCount()}입니다.");
-            //static으로 정의된 TotalNum (data영역에 존재) 인스탄스들이 전부 공유하기에 같은값이 나온다.
+            {
+                Student a = new Student("Kim");//구조체는 a라는 얘는 kim이름을 가진 값형태의 변수가된다.
+                Student b = new Student("Lee");
+                Student c = new Student("Min");
+
+                ChangeName(a, "Park");
+                Console.WriteLine($"Student Name is  {a.Name}");//{}블록스코프 밖으로 나가면 참조자가 사라져서 쓰레기가 되는것.
+            }//class였다면 {}안의 값 garbage 값이 됨
+            //구조체로 만들면 garbage가 생기지 않는다.>> 지역이 종료되면 사라지기때문에.
+            
+            /*
+            for(int i = 0; i < 10000; i++)
+            {
+                Student temp = new Student("");
+            }
+            class라면 만개의 garbage가 만들어지는 것임. stuct라면 0개
+            */
+
             Console.WriteLine($"현재 학생은 총 {Student.GetTotalCount()}입니다.");
-
-            test = 100; //일반 멤버 변수 사용 못함 static형은 사용가능
-            //Program의 인스탄스 변수 라서 호출이 전혀안되었기때문에
-
-            b.Out();//인스탄스는 사라지지 않음.
-            b = null;//참조하지 않음으로 바꿔버리면 garbage collector가 heap에서 지움.
-            Console.WriteLine($"현재 학생은 총 {Student.GetTotalCount()}입니다.");
-
-        }
+        }//구조체는 값형 class는 참조형 class는 인스탄스를 생성해야 사용됨
+         //몬스터, 캐릭터 : class, 아이템 : struct
         /*
         static void ChangeName(string str, string name)
         {
@@ -91,7 +95,7 @@ namespace cs_study_JS
 }
 //기술면접내용 이론
 //저장공간 : stack, heap, data, code
-//stack : 지역변수 만들어지고 사라지고
+//stack : 지역변수 만들어지고 사라지고 , 구조체도 여기.
 //heap : class로 만들어진 인스탄스 만들어지고사라지고
 //data : static으로 만들어진 함수 ,리터럴 상수
 //code : 함수가 저장되는 영역
