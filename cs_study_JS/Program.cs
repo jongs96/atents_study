@@ -42,51 +42,48 @@ namespace cs_study_JS
     //***class(인스탄스), 배열의 이름(배열상자의 첫번째) : 태생이 참조형***
     class Program
     {
-        static int test = 0;
+        //컬렉션 -Generic- c++의 STL
+        //Boxing Unboxing
         static void Main(string[] args)// main 함수 생성규칙.
         {
-            //Student a = new Student();//a라는 인스탄스 생성. new키워드로
-            //Student설계도로 만든 a > a라는 Student 형 type 의 참조형 변수(Student를 참조하는)
-            //a.Name = "Lee"; //프로퍼티 Name으로 이름 설정
-            //ChangeName(a, "kim");//call by reference 형식 class는 무조건 참조형 이기에 kim으로 변경된다.
-            //Console.WriteLine($"Student Name is {a.Name}");
-
-            /*ex
-            string a = "";
-            ChangeName(a, "Kim");
-            Console.WriteLine($"Student Name is {a.Name}");예외사항으로 string 은 변경이 안된다.
-            */
-
-            //Student.Name = ""; //안됨. 설계도의 이름을 바꾸는것이 안되어서
-            //Student.TotalNum = 1;//heap공간에 만들어진 모든 인스탄스는 data영역에 만들어진 TotalNumdmf rhddbgka
-            {
-                Student a = new Student("Kim");//구조체는 a라는 얘는 kim이름을 가진 값형태의 변수가된다.
-                Student b = new Student("Lee");
-                Student c = new Student("Min");
-
-                ChangeName(a, "Park");
-                Console.WriteLine($"Student Name is  {a.Name}");//{}블록스코프 밖으로 나가면 참조자가 사라져서 쓰레기가 되는것.
-            }//class였다면 {}안의 값 garbage 값이 됨
-            //구조체로 만들면 garbage가 생기지 않는다.>> 지역이 종료되면 사라지기때문에.
-            
-            /*
-            for(int i = 0; i < 10000; i++)
-            {
-                Student temp = new Student("");
-            }
-            class라면 만개의 garbage가 만들어지는 것임. stuct라면 0개
-            */
-
-            Console.WriteLine($"현재 학생은 총 {Student.GetTotalCount()}입니다.");
-        }//구조체는 값형 class는 참조형 class는 인스탄스를 생성해야 사용됨
-         //몬스터, 캐릭터 : class, 아이템 : struct
+            //IsEqual<string>("a", "a");//사용을 할 때, 타입을 정해줌
+            //object - 모든 변수, 클래스의 부모타입.
+            //IsEqual(1, "d");//object로하면 모든 타입 다사용가능 
+            //int a = 10;
+            //object b = a;//object 는 참조형. heap영역에 (int, 10)의 값이 생김 => boxing
+            //int c = (int)b;//=>unboxing c box안에 type 확인 후 값을 넣음.
+            //b = 20;//b에 20이 들어간 것이 아닌 참조가 바뀐 것.
+            //Boxing , unboxing이 일어나면 시간이 오래걸려 속도가 느려질 수 있다.
+            //일어나면 좋지않다.
+            object temp = 1;
+            temp = "kim";
+        }
         /*
         static void ChangeName(string str, string name)
         {
             str = name;
         }
         */
-
+        static bool IsEqual(object a, object b)
+        {
+            return a.Equals(b);
+        }//같은 형태
+        //static bool IsEqual<T1, T2>(T1 a, T2 b)
+        ////<T>임의의 T라는 의미. template약자라 보통T라고 적음. 2~3개도 지정가능
+        //{
+        //    return a.Equals(b);
+        //} 이러한 generic type으로 하는것이 boxing unboxing 이 일어나지 않는다.
+        /*
+        static int Sum(int a, int b)
+        {
+            return a + b;
+        }
+        static float Sum(float a, float b)
+        {
+            return a + b;
+        }
+        //같은 함수, 같은역할인데 다른 데이터타입이라 2개를 만드는것이 비효율적이다.
+        */
         static void ChangeName(Student s, string name)//이름 변경하는 함수
         {
             s.Name = name; //s라는 상자에 a가 참조하는 애를 참조하게 했다.
@@ -106,3 +103,5 @@ namespace cs_study_JS
 //heap공간이 줄어들다가 일정이하로 내려가면 발동해서 삭제함.
 //GC발동하는 순간에 frame dowm현상이 발생할 수 있다.
 //그래서 garbage를 최대한 적게 생기도록 신경을 써야 좋은 게임을 만들 수 있다.
+
+//boxing unboxing
