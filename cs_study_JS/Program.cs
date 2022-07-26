@@ -46,7 +46,7 @@ namespace cs_study_JS
                 ++i;//자동증가 안하는 이유. 지웠을 때, 지나치는 index가 생김.
             }Remove all 같은내용
             */
-            //익명함수 - 람다식
+            //익명함수 - 람다식(익명함수를 표현하는 문법)
             //list.RemoveAll((int n) => { return n == 20; });
             int num = 20;
             list.RemoveAll(n => n == num);//윗줄 이렇게 생략가능함. 이런식을 람다식이라함.
@@ -60,7 +60,7 @@ namespace cs_study_JS
             list.Remove(30);
             DrawList<int>(list);
 
-            if(list.Contains(30))//해당 list에 어떤값이 있는지 확인해야할 경우
+            if(list.Contains(30))//해당 list에 어떤값이 있는지 확인해야할 경우 ,true/false 값 반환
             {
                 Console.WriteLine("30이 존재합니다.");
             }
@@ -103,3 +103,5 @@ namespace cs_study_JS
 //그래서 garbage를 최대한 적게 생기도록 신경을 써야 좋은 게임을 만들 수 있다.
 
 //boxing unboxing
+
+//delegate 잘 다룰 줄 알아야 한다.
